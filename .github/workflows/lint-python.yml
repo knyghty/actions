@@ -33,7 +33,7 @@ on:
         required: false
         type: string
       requirements-files:
-        default: "requirements.txt"
+        default: requirements.txt
         description: Space-separated list of requirements files if using pip
         required: false
         type: string
@@ -56,10 +56,10 @@ jobs:
           cache: ${{ inputs.package-manager }}
           python-version: ${{ inputs.python-version }}
       - name: Install pipenv requirements
-        if: inputs.package-manager == "pipenv"
+        if: inputs.package-manager == 'pipenv'
         run: pip install pipenv && pipenv install --dev
       - name: Install pip requirements
-        if: inputs.package-manager == "pip"
+        if: inputs.package-manager == 'pip'
         run: pip install -r ${{ inputs.requirements-files }}
 
   black:
@@ -96,14 +96,14 @@ jobs:
           cache: ${{ inputs.package-manager }}
           python-version: ${{ inputs.python-version }}
       - name: Install pipenv requirements
-        if: inputs.package-manager == "pipenv"
+        if: inputs.package-manager == 'pipenv'
         run: pip install pipenv && pipenv install --dev
       - uses: isort/isort-action@master
-        if: inputs.package-manager == "pip"
+        if: inputs.package-manager == 'pip'
         with:
           requirementsFiles: ${{ inputs.requirements-files }}
       - uses: isort/isort-action@master
-        if: inputs.package-manager != "pip"
+        if: inputs.package-manager != 'pip'
 
   mypy:
     if: inputs.mypy
@@ -124,10 +124,10 @@ jobs:
       - name: Install mypy
         run: pip install mypy
       - name: Install pipenv requirements
-        if: inputs.package-manager == "pipenv"
+        if: inputs.package-manager == 'pipenv'
         run: pip install pipenv && pipenv install --dev
       - name: Install pip requirements
-        if: inputs.package-manager == "pip"
+        if: inputs.package-manager == 'pip'
         run: pip install -r ${{ inputs.requirements-files }}
       - name: Load mypy cache
         id: mypy-cache
