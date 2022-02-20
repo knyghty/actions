@@ -12,7 +12,7 @@ on:
         description: Set the pull request to merge automatically
         required: false
         type: boolean
-      update_types:
+      update-types:
         default: '["version-update:semver-minor", "version-update:semver-patch"]'
         description: Semver update types to merge automatically, as a JSON array string
         required: false
@@ -42,7 +42,7 @@ jobs:
         if: |
           inputs.merge
           && contains(
-            fromJSON(inputs.update_types),
+            fromJSON(inputs.update-types),
             steps.metadata.outputs.update-type
           )
         run: gh pr merge --auto --squash "$PR_URL"
