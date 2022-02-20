@@ -1,0 +1,49 @@
+name: Dependabot auto-review and merge
+on:
+  workflow_call:
+    inputs:
+      review:
+        default: true
+        description: Approve the pull request
+        required: false
+        type: boolean
+      merge:
+        default: true
+        description: Set the pull request to merge automatically
+        required: false
+        type: boolean
+      update_types:
+        default: '["version-update:semver-minor", "version-update:semver-patch"]'
+        description: Semver update types to merge automatically, as a JSON array string
+        required: false
+        type: string
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  dependabot-auto-merge:
+    runs-on: ubuntu-latest
+    if: (inputs.review || inputs.merge) && github.actor == "dependabot[bot]"
+    env:
+      PR_URL: ${{ github.event.pull_request.html_url }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1.1.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Approve PR
+        if: inputs.review
+        run: gh pr review --approve "$PR_URL"
+      - name: Merge PR
+        if: ?
+          inputs.merge
+          "&& contains("
+            fromJSON(inputs.update_types),
+            steps.metadata.outputs.update-type
+          )
+        :
+        run: gh pr merge --auto --squash "$PR_URL"

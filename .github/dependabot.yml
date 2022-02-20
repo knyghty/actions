@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    assignees:
+      - "knyghty"
+    directory: "/"
+    reviewers:
+      - "knyghty"
+    schedule:
+      day: "monday"
+      interval: "weekly"
+      time: "09:00"
+      timezone: "Europe/Amsterdam"
