@@ -39,11 +39,10 @@ jobs:
         if: inputs.review
         run: gh pr review --approve "$PR_URL"
       - name: Merge PR
-        if: ?
+        if: |
           inputs.merge
-          "&& contains("
+          && contains(
             fromJSON(inputs.update_types),
             steps.metadata.outputs.update-type
           )
-        :
         run: gh pr merge --auto --squash "$PR_URL"
