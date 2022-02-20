@@ -32,6 +32,6 @@ Inputs:
   Defaults to `'["version-update:semver-minor", "version-update:semver-patch"]'`.
   Note this must be provided as a string due to GitHub Actions limitations.
   Available update types:
-  - `"version-update:semver-major"`: Semver major update (1.0.0 -> 2.0.0)
-  - `"version-update:semver-minor"`: Semver minor update (1.0.0 -> 1.1.0)
-  - `"version-update:semver-patch"`: Semver patch update (1.0.0 -> 1.0.1)
+  - `version-update:semver-major`: Semver major update (1.0.0 -> 2.0.0)
+  - `version-update:semver-minor`: Semver minor update (1.0.0 -> 1.1.0)
+  - `version-update:semver-patch`: Semver patch update (1.0.0 -> 1.0.1)
