@@ -95,15 +95,18 @@ jobs:
         with:
           cache: ${{ inputs.package-manager }}
           python-version: ${{ inputs.python-version }}
+      # Make sure there is some version of isort in case it's not a listed dependency.
+      - name: Install isort
+        run: pip install isort
       - name: Install pipenv requirements
         if: inputs.package-manager == 'pipenv'
         run: pip install pipenv && pipenv install --dev
-      - uses: isort/isort-action@master
+      - name: Run isort (pip)
         if: inputs.package-manager == 'pip'
-        with:
-          requirementsFiles: ${{ inputs.requirements-files }}
-      - uses: isort/isort-action@master
-        if: inputs.package-manager != 'pip'
+        run: python -m isort --check-only --diff .
+      - name: Run isort (pipenv)
+        if: inputs.package-manager == 'pipenv'
+        run: pipenv run isort --check-only --diff .
 
   mypy:
     if: inputs.mypy
@@ -114,7 +117,7 @@ jobs:
         if: inputs.system-dependencies != ''
         run: |
           apt-get update -y
-          && apt-get install -y --no-install-recommends ${{ inputs.system-dependencies }}
+          apt-get install -y --no-install-recommends ${{ inputs.system-dependencies }}
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
@@ -135,5 +138,9 @@ jobs:
         with:
           path: .mypy_cache
           key: mypy-${{ runner.os }}
-      - name: Run mypy
+      - name: Run mypy (pip)
+        if: inputs.package-manager == 'pip'
         run: python -m mypy --show-column-numbers
+      - name: Run mypy (pipenv)
+        if: inputs.package-manager == 'pipenv'
+        run: pipenv run mypy --show-column-numbers
