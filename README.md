@@ -82,3 +82,18 @@ Inputs:
 Some linters (isort and mypy) require Python depdencies to be installed to work.
 Addtionally, mypy can require system depdencies to be installed as the Python
 modules are imported during linting.
+
+## Notes
+
+I've made these actions for my own use.
+I neither intend nor unintend for other people to use these actions.
+If you decide to use these, keep in mind they might change in the future.
+For this reason, I'd suggest pinning to a commit hash to ensure the behaviour
+doesn't change:
+
+```yaml
+lint:
+  uses: knyghty/actions/.github/workflows/lint-python.yml@cc364066ead7c55aedbf7ebdb6fa17d370f166d4
+  with:
+    ...
+```
