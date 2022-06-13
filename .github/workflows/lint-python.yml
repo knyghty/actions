@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           cache: ${{ inputs.package-manager }}
           python-version: ${{ inputs.python-version }}
@@ -74,7 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ inputs.python-version }}
       - name: Install flake8
@@ -91,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           cache: ${{ inputs.package-manager }}
           python-version: ${{ inputs.python-version }}
@@ -119,7 +119,7 @@ jobs:
           apt-get update -y
           apt-get install -y --no-install-recommends ${{ inputs.system-dependencies }}
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           cache: ${{ inputs.package-manager }}
           python-version: ${{ inputs.python-version }}
