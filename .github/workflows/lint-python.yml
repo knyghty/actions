@@ -50,7 +50,7 @@ jobs:
     if: inputs.isort || inputs.mypy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           cache: ${{ inputs.package-manager }}
@@ -66,14 +66,14 @@ jobs:
     if: inputs.black
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: psf/black@stable
 
   flake8:
     if: inputs.flake8
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ inputs.python-version }}
@@ -90,7 +90,7 @@ jobs:
     needs: [python-dependencies]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           cache: ${{ inputs.package-manager }}
@@ -118,7 +118,7 @@ jobs:
         run: |
           apt-get update -y
           apt-get install -y --no-install-recommends ${{ inputs.system-dependencies }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           cache: ${{ inputs.package-manager }}
